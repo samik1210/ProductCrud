@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ProductCrud.Models.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Product List</h2>
+
+<br />
+<p>
+    <a href="@Url.Action("Create","Product")" class="btn btn-default" style="background-color:blue"> Add Product  </a>
+
+</p>
+
+<table class="table table-bordered">
+    <tr class="btn-primary">
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Created)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Created)
+            </td>
+            <td>
+                <a href="@Url.Action("Details", "Product" , new { id = item.SN})" class="btn btn-default" style="background-color:blue"><i class="fa fa-address-book-o"></i></a>
+                <a href="@Url.Action("Edit", "Product" , new { id = item.SN})" class="btn btn-default" style="background-color:springgreen"><i class="fa fa-pencil"></i></a>
+                <a href="@Url.Action("Delete", "Product",  new { id = item.SN, onclick = "return confirm('Are you sure?');"   })" class="btn btn-default" style="background-color:red"><i class="fa fa-trash"></i></a>
+
+            </td>
+        </tr>
+    }
+
+</table>
+@section Scripts {
+    <script>
+        $(function () {
+            var successMessage = '@TempData["SuccessMessage"]'
+            if (successMessage != '')
+                alertify.success(successMessage);
+        });
+
+        
+    </script>
+} 
